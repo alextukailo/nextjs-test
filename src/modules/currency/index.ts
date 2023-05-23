@@ -6,9 +6,9 @@ export interface CurrencyCard {
     high_24h: number;
     low_24h: number;
     symbol: string;
-    ath: string;
-    market_cap: string;
-    market_cap_rank: string;
+    ath: number;
+    market_cap: number;
+    market_cap_rank: number;
   }
   
   export type CurrencyCards = Array<CurrencyCard>
