@@ -6,7 +6,9 @@ import { useRouter } from 'next/router'
 import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
+
 import { type CurrencyCard } from "@/src/modules/currency";
+import getCurrency from "@/src/modules/currency/api/getCurrency";
 
 const SymbolPage = ({ symbol }: { symbol: CurrencyCard }) => {
   const router = useRouter()
@@ -33,7 +35,7 @@ const SymbolPage = ({ symbol }: { symbol: CurrencyCard }) => {
           <div className="flex items-center	mb-16">
             <button
               onClick={handleBackClick}
-              className="bg-transparent p-0 hover:text-slate-600 text-slate-500 font-boldrounded"
+              className="currency-button"
             >
               {'<'} Back 
             </button>
@@ -52,7 +54,7 @@ const SymbolPage = ({ symbol }: { symbol: CurrencyCard }) => {
             </span>
           </div>
           <div>
-            <h2 className="text-3xl mb-8 font-semibold text-slate-600">{symbol.name}</h2>
+            <h2 className="currency-heading">{symbol.name}</h2>
             <div className="shadow-2xl p-4">
               <ul className="list-none">
                 <li className="text-slate-600 mb-4">Current Price: {symbol.current_price}</li>
@@ -71,10 +73,9 @@ const SymbolPage = ({ symbol }: { symbol: CurrencyCard }) => {
 export default SymbolPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD');
-  const cards = await res.json();
+  const cards = await getCurrency() ?? [];
 
-  const paths = cards.map((card: CurrencyCard) => {
+  const paths = cards.map((card) => {
     return {
       params: {
         symbol: `${card.symbol}`
@@ -88,11 +89,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD');
-  const cards = await res.json();
+  const cards = await getCurrency() ?? [];
   const slug = params!.symbol!
 
-  const [symbol] = cards.filter((card: CurrencyCard) => card.symbol === slug)
+  const [symbol] = cards.filter((card) => card.symbol === slug)
 
   return {
     props: {

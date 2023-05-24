@@ -20,3 +20,37 @@ body {
   color: rgb(var(--foreground-rgb));
   background: var(--background-end-rgb);
 }
+
+.container-secondary {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-sm;
+}
+
+.container-main {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+
+.card-wrapper {
+  @apply flex p-6 shadow-xl flex-col rounded-lg bg-gradient-to-br from-blue-100 to-purple-200;
+}
+
+.card-text {
+  @apply text-slate-600;
+}
+
+.card-heading {
+  @apply text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-purple-800;
+}
+
+.card-button {
+  @apply bg-transparent	p-0 hover:text-slate-600 text-slate-500;
+}
+
+
+.currency-heading {
+  @apply text-3xl mb-8 font-semibold text-slate-600;
+}
+
+.currency-button {
+  @apply bg-transparent p-0 hover:text-slate-600 text-slate-500;
+}
